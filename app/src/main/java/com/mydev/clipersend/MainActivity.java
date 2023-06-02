@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -14,6 +15,10 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private static String TAG = "主界面 MainActivity";
+    public static TextView showText;
+    public static TextView retText;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String action = intent.getAction();
         String type = intent.getType();
+        showText = findViewById(R.id.showpaste);
+        retText = findViewById(R.id.retdata);
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
+            showText.setText(sharedText);
             Log.e(TAG, "handleSendText: "+sharedText );
             SendCliperMessageTask aa = new SendCliperMessageTask();
             aa.execute(sharedText);
@@ -46,25 +54,22 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             Log.i("PicUrlTask", "onPreExecute() enter");
         }
-
         @Override
         protected String doInBackground(String... params) {
             String message = params[0];
             Map<String,Object> map=new HashMap();//要传的值
             map.put("message",message);
-            map.put("key2",123456);
             JSONObject jsonObject=new JSONObject(map);
-
-            Log.e(TAG, "doInBackground: "+jsonObject.toString());
+            Log.e(TAG, "doInBackground: post data:"+jsonObject.toString());
             String ret = Funcs.postMethod("http://gz.999887.xyz/clip.php",jsonObject.toString());
-            Log.e(TAG, "doInBackground: get json ret "+ret );
+            Log.e(TAG, "doInBackground: get json ret:"+ret );
             return ret;
         }
 
         @Override
         protected void onPostExecute(String result) {
+            retText.setText(result);
             Log.e(TAG, "onPostExecute: 任务完成:"+result );
         }
     }
-
 }

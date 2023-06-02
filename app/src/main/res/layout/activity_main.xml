@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/maintext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/showpaste"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:text="本地粘贴板"
+        android:textSize="20dp"
+        android:textIsSelectable="true"
         app:layout_constraintTop_toTopOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@android:color/black"
+        />
+    <TextView
+        android:id="@+id/retdata"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:textSize="20dp"
+        android:text="同步结果"
+        android:textIsSelectable="true"
+        />
+</LinearLayout>

@@ -49,7 +49,6 @@ public class Funcs {
             while (null != (line=br.readLine())){
                 rest.append(line);
             }
-            //Log.e("Funcs查看所有返回数据", "postMethod: "+rest.toString() );
             return rest.toString();
         } catch (Exception e) {
             e.printStackTrace();
